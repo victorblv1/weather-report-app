@@ -1,37 +1,39 @@
 package http
 
 import (
-    "net/http"
-    "github.com/gorilla/mux"
-    "weather-report-app/internal/weather/application"
+	"encoding/json"
+	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/victorblv1/weather-report-app/internal/weather/application"
 )
 
 type Handler struct {
-    weatherService *application.WeatherService
+	weatherService *application.WeatherService
 }
 
 func NewHandler(weatherService *application.WeatherService) *Handler {
-    return &Handler{weatherService: weatherService}
+	return &Handler{weatherService: weatherService}
 }
 
 func (h *Handler) GetWeatherHandler(w http.ResponseWriter, r *http.Request) {
-    city := mux.Vars(r)["city"]
-    weather, err := h.weatherService.GetWeather(city)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    // Respond with weather data (this should be formatted as JSON)
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(weather)
+	city := mux.Vars(r)["city"]
+	weather, err := h.weatherService.GetWeather(city)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// Respond with weather data (this should be formatted as JSON)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(weather)
 }
 
 func (h *Handler) RefreshWeatherHandler(w http.ResponseWriter, r *http.Request) {
-    city := mux.Vars(r)["city"]
-    err := h.weatherService.RefreshWeather(city)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    w.WriteHeader(http.StatusNoContent)
+	city := mux.Vars(r)["city"]
+	err := h.weatherService.RefreshWeather(city)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
 }

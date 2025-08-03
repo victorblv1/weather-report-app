@@ -4,17 +4,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"weather-report-app/internal/weather/domain"
+
+	"github.com/victorblv1/weather-report-app/internal/weather/domain"
 )
 
 type WeatherAPI struct {
-	APIKey string
+	APIKey  string
 	BaseURL string
 }
 
 func NewWeatherAPI(apiKey string) *WeatherAPI {
 	return &WeatherAPI{
-		APIKey: apiKey,
+		APIKey:  apiKey,
 		BaseURL: "https://api.openweathermap.org/data/2.5/weather",
 	}
 }

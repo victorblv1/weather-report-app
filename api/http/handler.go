@@ -5,14 +5,14 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/victorblv1/weather-report-app/internal/weather/application"
+	weather "github.com/victorblv1/weather-report-app/internal/weather/application"
 )
 
 type Handler struct {
-	weatherService *application.WeatherService
+	weatherService *weather.WeatherService
 }
 
-func NewHandler(weatherService *application.WeatherService) *Handler {
+func NewHandler(weatherService *weather.WeatherService) *Handler {
 	return &Handler{weatherService: weatherService}
 }
 

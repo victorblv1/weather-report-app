@@ -1,16 +1,15 @@
 package http
 
 import (
-    "github.com/gorilla/mux"
-    "net/http"
+	"github.com/gorilla/mux"
 )
 
-func NewRouter() *mux.Router {
-    router := mux.NewRouter()
+func NewRouter(handler *Handler) *mux.Router {
+	router := mux.NewRouter()
 
-    // Define routes for weather-related endpoints
-    router.HandleFunc("/weather/{city}", GetWeatherHandler).Methods("GET")
-    router.HandleFunc("/weather/{city}/refresh", RefreshWeatherHandler).Methods("POST")
+	// Define routes for weather-related endpoints
+	router.HandleFunc("/weather/{city}", handler.GetWeatherHandler).Methods("GET")
+	router.HandleFunc("/weather/{city}/refresh", handler.RefreshWeatherHandler).Methods("POST")
 
-    return router
+	return router
 }

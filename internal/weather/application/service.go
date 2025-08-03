@@ -1,7 +1,7 @@
 package weather
 
 import (
-	"errors"
+	"github.com/victorblv1/weather-report-app/internal/weather/domain"
 )
 
 type Weather struct {
@@ -11,17 +11,17 @@ type Weather struct {
 }
 
 type WeatherService struct {
-	repo WeatherRepository
+	repo domain.WeatherRepository
 }
 
-func NewWeatherService(repo WeatherRepository) *WeatherService {
+func NewWeatherService(repo domain.WeatherRepository) *WeatherService {
 	return &WeatherService{repo: repo}
 }
 
-func (s *WeatherService) GetWeather(city string) (*Weather, error) {
+func (s *WeatherService) GetWeather(city string) (domain.Weather, error) {
 	weather, err := s.repo.FetchWeather(city)
 	if err != nil {
-		return nil, err
+		return domain.Weather{}, err
 	}
 	return weather, nil
 }
@@ -31,8 +31,5 @@ func (s *WeatherService) RefreshWeather(city string) error {
 	if err != nil {
 		return err
 	}
-	if weather == nil {
-		return errors.New("no weather data found")
-	}
-	return s.repo.SaveWeather(*weather)
+	return s.repo.SaveWeather(weather)
 }

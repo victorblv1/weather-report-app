@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/yourusername/weather-report-app/internal/weather/application"
-	"github.com/yourusername/weather-report-app/internal/user/application"
+	"github.com/victorblv1/weather-report-app/internal/user/application"
+	"github.com/victorblv1/weather-report-app/internal/weather/application"
 )
 
 type App struct {

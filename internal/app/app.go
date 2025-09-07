@@ -1,16 +1,16 @@
 package app
 
 import (
-	"github.com/victorblv1/weather-report-app/internal/user/application"
-	"github.com/victorblv1/weather-report-app/internal/weather/application"
+	user "github.com/victorblv1/weather-report-app/internal/user/application"
+	weather "github.com/victorblv1/weather-report-app/internal/weather/application"
 )
 
 type App struct {
-	WeatherService application.WeatherService
-	UserService    application.UserService
+	WeatherService *weather.WeatherService
+	UserService    user.UserService
 }
 
-func NewApp(weatherService application.WeatherService, userService application.UserService) *App {
+func NewApp(weatherService *weather.WeatherService, userService user.UserService) *App {
 	return &App{
 		WeatherService: weatherService,
 		UserService:    userService,

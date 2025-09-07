@@ -21,7 +21,7 @@ func NewWeatherAPI(apiKey string) *WeatherAPI {
 }
 
 func (w *WeatherAPI) FetchWeather(city string) (domain.Weather, error) {
-	url := fmt.Sprintf("%s?q=%s&appid=%s", w.BaseURL, city, w.APIKey)
+	url := fmt.Sprintf("%s?q=%s&appid=%s&units=metric", w.BaseURL, city, w.APIKey)
 	resp, err := http.Get(url)
 	if err != nil {
 		return domain.Weather{}, err
